@@ -1,0 +1,151 @@
+import React, { useState } from 'react';
+
+interface FarmData {
+  soilComposition: string;
+  climate: string;
+  farmingPractices: string;
+  waterUsage: number;
+  fertilizerUsage: number;
+  pesticideUsage: number;
+}
+
+const FarmManagementApp = () => {
+  const [farmData, setFarmData] = useState<FarmData>({
+    soilComposition: '',
+    climate: '',
+    farmingPractices: '',
+    waterUsage: 0,
+    fertilizerUsage: 0,
+    pesticideUsage: 0,
+  });
+
+  const [recommendations, setRecommendations] = useState({
+    irrigationEfficiency: '',
+    suggestedCrops: '',
+    resourceManagement: '',
+  });
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFarmData({ ...farmData, [name]: value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const irrigationEfficiency = farmData.waterUsage < 50 ? 'Optimal' : 'Inefficient';
+    const suggestedCrops = farmData.soilComposition === 'Clay' ? 'Rice, Wheat' : 'Corn, Soybeans';
+    const resourceManagement = farmData.fertilizerUsage < 20 ? 'Optimal' : 'Excessive!';
+
+    setRecommendations({
+      irrigationEfficiency,
+      suggestedCrops,
+      resourceManagement,
+    });
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto p-4 mt-4 bg-white rounded-md shadow-md">
+      <h1 className="text-3xl font-bold text-green-600 mb-4">Farm Management App</h1>
+      <form onSubmit={handleSubmit}>
+        <div className="flex flex-col mb-4">
+          <label className="text-lg font-bold text-gray-600 mb-2" htmlFor="soilComposition">
+            Soil Composition
+          </label>
+          <input
+            className="p-2 border border-gray-300 rounded-md"
+            type="text"
+            id="soilComposition"
+            name="soilComposition"
+            value={farmData.soilComposition}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="flex flex-col mb-4">
+          <label className="text-lg font-bold text-gray-600 mb-2" htmlFor="climate">
+            Climate
+          </label>
+          <input
+            className="p-2 border border-gray-300 rounded-md"
+            type="text"
+            id="climate"
+            name="climate"
+            value={farmData.climate}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="flex flex-col mb-4">
+          <label className="text-lg font-bold text-gray-600 mb-2" htmlFor="farmingPractices">
+            Farming Practices
+          </label>
+          <input
+            className="p-2 border border-gray-300 rounded-md"
+            type="text"
+            id="farmingPractices"
+            name="farmingPractices"
+            value={farmData.farmingPractices}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="flex flex-col mb-4">
+          <label className="text-lg font-bold text-gray-600 mb-2" htmlFor="waterUsage">
+            Water Usage (liters)
+          </label>
+          <input
+            className="p-2 border border-gray-300 rounded-md"
+            type="number"
+            id="waterUsage"
+            name="waterUsage"
+            value={farmData.waterUsage}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="flex flex-col mb-4">
+          <label className="text-lg font-bold text-gray-600 mb-2" htmlFor="fertilizerUsage">
+            Fertilizer Usage (kg)
+          </label>
+          <input
+            className="p-2 border border-gray-300 rounded-md"
+            type="number"
+            id="fertilizerUsage"
+            name="fertilizerUsage"
+            value={farmData.fertilizerUsage}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="flex flex-col mb-4">
+          <label className="text-lg font-bold text-gray-600 mb-2" htmlFor="pesticideUsage">
+            Pesticide Usage (kg)
+          </label>
+          <input
+            className="p-2 border border-gray-300 rounded-md"
+            type="number"
+            id="pesticideUsage"
+            name="pesticideUsage"
+            value={farmData.pesticideUsage}
+            onChange={handleInputChange}
+          />
+        </div>
+        <button
+          className="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700"
+          type="submit"
+        >
+          Generate Recommendations
+        </button>
+      </form>
+      <div className="mt-4">
+        <h2 className="text-2xl font-bold text-green-600 mb-2">Recommendations</h2>
+        <p className="text-lg text-gray-600 mb-2">
+          Irrigation Efficiency: {recommendations.irrigationEfficiency}
+        </p>
+        <p className="text-lg text-gray-600 mb-2">
+          Suggested Crops: {recommendations.suggestedCrops}
+        </p>
+        <p className="text-lg text-gray-600 mb-2">
+          Resource Management: {recommendations.resourceManagement}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default FarmManagementApp;
