@@ -1,0 +1,117 @@
+import { useState } from 'react';
+import { Button } from "/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "/components/ui/card";
+import { Input } from "/components/ui/input";
+import { Label } from "/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "/components/ui/select";
+import { Textarea } from "/components/ui/textarea";
+
+const SoilAndCropManagement = () => {
+  const [soilType, setSoilType] = useState('');
+  const [cropType, setCropType] = useState('');
+  const [fertilizerType, setFertilizerType] = useState('');
+  const [irrigationType, setIrrigationType] = useState('');
+  const [notes, setNotes] = useState('');
+
+  const handleSoilTypeChange = (e) => {
+    setSoilType(e.target.value);
+  };
+
+  const handleCropTypeChange = (e) => {
+    setCropType(e.target.value);
+  };
+
+  const handleFertilizerTypeChange = (e) => {
+    setFertilizerType(e.target.value);
+  };
+
+  const handleIrrigationTypeChange = (e) => {
+    setIrrigationType(e.target.value);
+  };
+
+  const handleNotesChange = (e) => {
+    setNotes(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form submitted:', soilType, cropType, fertilizerType, irrigationType, notes);
+  };
+
+  return (
+    <div className="max-w-3xl mx-auto p-4">
+      <Card>
+        <CardHeader>
+          <CardTitle>Soil and Crop Management</CardTitle>
+          <CardDescription>Manage your soil and crop data</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <Label htmlFor="soilType">Soil Type:</Label>
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select soil type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="clay">Clay</SelectItem>
+                  <SelectItem value="sandy">Sandy</SelectItem>
+                  <SelectItem value="loamy">Loamy</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="mb-4">
+              <Label htmlFor="cropType">Crop Type:</Label>
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select crop type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="wheat">Wheat</SelectItem>
+                  <SelectItem value="corn">Corn</SelectItem>
+                  <SelectItem value="soybeans">Soybeans</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="mb-4">
+              <Label htmlFor="fertilizerType">Fertilizer Type:</Label>
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select fertilizer type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="nitrogen">Nitrogen</SelectItem>
+                  <SelectItem value="phosphorus">Phosphorus</SelectItem>
+                  <SelectItem value="potassium">Potassium</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="mb-4">
+              <Label htmlFor="irrigationType">Irrigation Type:</Label>
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select irrigation type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="drip">Drip</SelectItem>
+                  <SelectItem value="sprinkler">Sprinkler</SelectItem>
+                  <SelectItem value="flood">Flood</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="mb-4">
+              <Label htmlFor="notes">Notes:</Label>
+              <Textarea value={notes} onChange={handleNotesChange} />
+            </div>
+            <Button type="submit">Submit</Button>
+          </form>
+        </CardContent>
+        <CardFooter>
+          <p>Soil and crop data will be saved for future reference.</p>
+        </CardFooter>
+      </Card>
+    </div>
+  );
+};
+
+export default SoilAndCropManagement;
